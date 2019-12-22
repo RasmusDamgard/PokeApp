@@ -776,7 +776,7 @@
   			<input type="button" id="button" value="Cauculate">
 		</form>
 	</div>
-
+	<script lang="javascript" src="dist/xlsx.full.min.js"></script>
 	<script type="text/javascript">
 		var cauculate = document.getElementById("button");
 
@@ -791,6 +791,10 @@
 			console.log(atk);
 			console.log(def);
 			console.log(hp);
+			var Excel = new ActiveXObject("Excel.Application");
+			Excel.Visible = true;
+			Excel.Workbooks.Open("pokeapp.xlsx");
+			
 		}
 	</script>
 
