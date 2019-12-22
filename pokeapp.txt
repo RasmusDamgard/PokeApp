@@ -1,4 +1,4 @@
-#	Pokémon	HP	Attack	Defense
+pokemonlist="#	Pokémon	HP	Attack	Defense
 001	Bulbasaur	128	118	111
 002	Ivysaur	155	151	143
 003	Venusaur	190	198	189
@@ -695,4 +695,4 @@
 648	Meloetta (Aria)	225	250	225
 648P	Meloetta (Pirouette)	225	269	188
 808	Meltan	130	118	99
-809	Melmetal	264	226	190
+809	Melmetal	264	226	190"

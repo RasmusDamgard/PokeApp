@@ -776,8 +776,8 @@
   			<input type="button" id="button" value="Cauculate">
 		</form>
 	</div>
-	<script lang="javascript" src="dist/xlsx.full.min.js"></script>
-	<script type="text/javascript">
+
+	<script type="text/javascript" src="pokeapp.txt">
 		var cauculate = document.getElementById("button");
 
 		cauculate.onclick = function() {
@@ -791,10 +791,7 @@
 			console.log(atk);
 			console.log(def);
 			console.log(hp);
-			var Excel = new ActiveXObject("Excel.Application");
-			Excel.Visible = true;
-			Excel.Workbooks.Open("pokeapp.xlsx");
-			
+			console.log(pokemonlist)
 		}
 	</script>
 
