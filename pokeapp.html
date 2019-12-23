@@ -773,43 +773,28 @@
   			</select>
   		
   			<br>
-  			<input type="button" id="button" value="Cauculate">
+  			<input type="button" id="calculate" value="Calculate">
 		</form>
 	</div>
+
 	<script src="./basestats.js"></script>
-	<script type="text/javascript">
-		var cauculate = document.getElementById("button");
 
+	<script>
 		var loadScript = function(src) {
-			var tag = document.createElement('script');
-			tag.async = false;
-			tag.src = src;
-			document.getElementsByTagName('body').appendChild(tag);
-			}
+			var script = document.createElement('script');
+			script.setAttribute('src', src);
+			document.body.appendChild(script);
+		}
 
-		cauculate.onclick = function() {
-			var pokemonID = document.getElementById("pokemon_chosen").value;
-			var cp = document.getElementById("cp").value;
-			var atk = document.getElementById("atk").value;
-			var def = document.getElementById("def").value;
-			var hp = document.getElementById("hp").value;
-			//Array of pokemon stats containing:
-			//Pokedex#, Name, HP, Attack, Defense
-			var pokemon = basestats[pokemonID];
-			document.getElementById("ivspreadsheet").setAttribute("src","./spreadsheets/"+pokemonID+".js");
-			var testing = GetData()
-			loadScript("./spreadsheets/"+pokemonID+".js")
+		var calculate = document.getElementById("calculate");
 
-			console.log("Pokemon ID: " + pokemonID);
-			console.log("CP:" + cp);
-			console.log("Attack IV: " + atk);
-			console.log("Defense IV: " + def);
-			console.log("HP IV: " + hp);
-			console.log("Basestats: " + pokemon);
-			console.log(testing);
-			
+		calculate.onclick = function() {
+			var pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
+			//TODO: IF all inputs filled validly, then loadScript, else alert("do inputs")
+			//This script calls another scripts that calculates
+			loadScript("./spreadsheets/"+pokemonID+".js");
 		}
 	</script>
-
+	
 </body>
 </htmllang="en">
