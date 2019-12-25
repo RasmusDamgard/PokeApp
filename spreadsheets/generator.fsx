@@ -884,7 +884,6 @@ let Calculate (id: int) : (stats[][][] * stats[][][])  =
                 //printfn "%i/%i/%i: GL(%A) UL(%A)" atkIV defIV hpIV glStats ulStats
                 glData.[atkIV].[defIV].[hpIV] <- glStats
                 ulData.[atkIV].[defIV].[hpIV] <- ulStats
-                ()
     (ulData, glData)
 
 
@@ -903,5 +902,5 @@ printfn "%A" test
 let test2 = Calculate 266
 let gltest = fst test2
 let ultest = snd test2
-printfn "%A" fst test2.[15].[15].[15]
+printfn "%A" gltest.[15].[15].[15]
 //WriteFile 2
