@@ -26,7 +26,7 @@
 
 			for (i = 0; i < levelchart.length; i++) {
 			  var currentDiff = Math.abs(cpm - levelchart[i][1]);
-			  var smallestDiff = Math.abs(cpm - indexSmall);
+			  var smallestDiff = Math.abs(cpm - levelchart[indexSmall][1]);
 			  if (currentDiff < smallestDiff) {
 			    indexSmall = i;
 			  }
