@@ -837,11 +837,15 @@ let RealStat (basestat) (iv) (level: level) : float =
 let Level (atk) (def) (hp) (cp) =
     ()
 
-let Calculate (id: int) =
-    let mutable level = (1,false)
+//CP*Level*Atk*Def*HP*Statproduct
+type stats = (int*level*float*float*float*float)
+
+let Calculate (id: int) : (stats[][][] * stats[][][])  =
+    let mutable level : level = (1,false)
     let (_,_,strHP,strAtk,strDef) = basestats.[id]
     let baseHP, baseAtk, baseDef = int strHP, int strAtk, int strDef
-
+    let glData = Array.create 16 (Array.create 16 (Array.create 16 (0,level,0.0,0.0,0.0,0.0)))
+    let ulData = Array.create 16 (Array.create 16 (Array.create 16 (0,level,0.0,0.0,0.0,0.0)))
     for atkIV = 0 to 15 do
         for defIV = 0 to 15 do
             for hpIV = 0 to 15 do
@@ -876,10 +880,12 @@ let Calculate (id: int) =
                             else (fst level, true)
                     else
                         isCalcing <- false
-                    
                 //Save data
-                printfn "%i/%i/%i: GL(%A) UL(%A)" atkIV defIV hpIV glStats ulStats
+                //printfn "%i/%i/%i: GL(%A) UL(%A)" atkIV defIV hpIV glStats ulStats
+                glData.[atkIV].[defIV].[hpIV] <- glStats
+                ulData.[atkIV].[defIV].[hpIV] <- ulStats
                 ()
+    (ulData, glData)
 
 
 let WriteFile (id: int) =
@@ -894,6 +900,8 @@ let WriteFile (id: int) =
 
 let test = Level2CpM (45,false)
 printfn "%A" test
-Calculate 266
-
+let test2 = Calculate 266
+let gltest = fst test2
+let ultest = snd test2
+printfn "%A" fst test2.[15].[15].[15]
 //WriteFile 2
