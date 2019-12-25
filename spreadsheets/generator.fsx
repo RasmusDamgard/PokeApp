@@ -701,7 +701,7 @@ let basestats =
 //Level 36,true) is represented as (36,true)
 type level = (int*bool)
 
-let cpms : (level*float) array = 
+let cpms : (level*float) array =
     [|((1,false),0.094);
     ((1,true),0.1351374318);
     ((2,false),0.16639787);
