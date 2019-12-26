@@ -697,9 +697,18 @@ let basestats =
     ("808","Meltan","130","118","99");
     ("809","Melmetal","264","226","190")|]
 
+let MAXLEVEL = (45,false) 
+
 //Level as int, and then true if half level above
 //Level 36,true) is represented as (36,true)
 type level = (int*bool)
+//RealAtk,RealDef,RealHp,StatProduct
+type statdata = (float*float*int*int)
+type ivs = (int*int*int)
+type cp = int
+//PvP#,PvP%
+type rank = (int*float)
+type pvpdata = ivs*level*cp*statdata*rank
 
 let cpms : (level*float) array =
     [|((1,false),0.094);
@@ -792,6 +801,167 @@ let cpms : (level*float) array =
     ((44,true),0.8128038347);
     ((45,false),0.81529999)|]
 
+let Level2CpM (level: level) =
+    let halflevel = if snd level then 1 else 0
+    let i = 2*(fst level) + halflevel - 2
+    snd cpms.[i]
+
+let Cp (atk: int) (def: int) (hp: int) (level: level) : int =
+    let cpm = Level2CpM level
+    int ((float atk * sqrt(float def) * sqrt(float hp) * (cpm ** 2.0)) / 10.0)
+
+let RealStat (corestat) (level: level) : float =
+    let cpm = Level2CpM level
+    float corestat * cpm
+
+let FindStatData (atk: int) (def: int) (hp: int) (level: level) : statdata =
+    let rAtk = RealStat atk level
+    let rDef = RealStat def level
+    let rHp = int (RealStat hp level)
+    let product = int (rAtk * rDef * float rHp)
+    (rAtk, rDef, rHp, product)
+
+//let Level (atk) (def) (hp) (cp) =
+//    ()
+
+let LevelUp (level: level) =
+    if snd level then (fst level + 1, false)
+    else (fst level, true)
+
+let FindPvPLevels (atk) (def) (hp) =
+    let rec helper level acc =
+        let cp = Cp atk def hp level
+        if cp <= 1500 then 
+            if level = MAXLEVEL then (level, level)
+            else helper (LevelUp level) (level, level)
+        elif cp <= 2500 then
+            if level = MAXLEVEL then (fst acc, level)
+            else helper (LevelUp level) (fst acc, level)
+        else acc
+    let fstLvl = (1,false)
+    helper fstLvl (fstLvl, fstLvl)
+
+let Calculate (id: int) : (pvpdata [,,] * pvpdata [,,]) =
+    let (_,_,strHP,strAtk,strDef) = basestats.[id]
+    let hpBase, atkBase, defBase = int strHP, int strAtk, int strDef
+    let glData = Array3D.zeroCreate 16 16 16
+    let ulData = Array3D.zeroCreate 16 16 16
+    for atkIV = 0 to 15 do
+        for defIV = 0 to 15 do
+            for hpIV = 0 to 15 do
+                let ivs = (atkIV, defIV, hpIV)
+                let atk = atkBase + atkIV
+                let def = defBase + defIV
+                let hp = hpBase + hpIV
+                let glLevel, ulLevel = FindPvPLevels atk def hp
+                let glCp = Cp atk def hp glLevel
+                let ulCp = Cp atk def hp ulLevel
+                let glStatData = FindStatData atk def hp glLevel
+                let ulStatData = FindStatData atk def hp ulLevel
+                let glStats = (ivs,glLevel,glCp,glStatData,(0,0.0))
+                let ulStats = (ivs,ulLevel,ulCp,ulStatData,(0,0.0))
+                glData.[atkIV,defIV,hpIV] <- glStats
+                ulData.[atkIV,defIV,hpIV] <- ulStats
+
+//pvpData mapped unto a 1d array for sorting.
+    let glCopy = Array.zeroCreate<pvpdata> 4096
+    let ulCopy = Array.zeroCreate<pvpdata> 4096
+    for i = 0 to 15 do
+        for j = 0 to 15 do
+            for k = 0 to 15 do
+                let index = i + 16 * (j + 16 * k)
+                glCopy.[index] <- glData.[i,j,k]
+                ulCopy.[index] <- ulData.[i,j,k]
+
+    let sorter elem =
+        let (_,_,_,(_,_,_,product),_) = elem
+        -product //Sort reverse
+    Array.sortInPlaceBy sorter glCopy
+    Array.sortInPlaceBy sorter ulCopy
+
+    let glRankAssigner i elem =
+        let (ivs,_,_,(_,_,_,product),_) = elem
+        let (_,_,_,(_,_,_,bestProduct),_) = glCopy.[0]
+        let (a,d,h) = ivs
+        let percent = float product / float bestProduct * 100.0
+        let rank = (i+1, percent)
+        let (c1,c2,c3,c4,_) = glData.[a,d,h]
+        glData.[a,d,h] <- (c1,c2,c3,c4,rank)
+    let ulRankAssigner i elem =
+        let (ivs,_,_,(_,_,_,product),_) = elem
+        let (_,_,_,(_,_,_,bestProduct),_) = ulCopy.[0]
+        let (a,d,h) = ivs
+        let percent = float product / float bestProduct * 100.0
+        let rank = (i+1, percent)
+        let (c1,c2,c3,c4,_) = ulData.[a,d,h]
+        ulData.[a,d,h] <- (c1,c2,c3,c4,rank)
+    Array.iteri glRankAssigner glCopy
+    Array.iteri ulRankAssigner ulCopy
+
+    (glData, ulData) //Returned as tuple
+
+let parseToJS (data: pvpdata) =
+    let (_,(wholeLevels,halfLevel),cp,(atk,def,hp,product),(rank,percent)) = data
+    //let jsIVS = sprintf "'%i','%i','%i'," a d h
+    let jsLEVEL =
+        if halfLevel then sprintf "'%i.5'," wholeLevels
+        else sprintf "'%i'," wholeLevels
+    let jsCP = sprintf "'%i'," cp
+    let jsSTATS = sprintf "'%3.2f','%3.2f','%i','%i'," atk def hp product
+    let jsRANK = sprintf "'%i'," rank
+    let jsPERCENT = sprintf "'%3.2f'" percent
+    (jsLEVEL+jsCP+jsSTATS+jsRANK+jsPERCENT)
+
+let WriteFile (id: int) =
+    let path = string id + "b.js"
+    let fileRef = System.IO.File.CreateText path
+    //Write stuff
+    fileRef.Write "var ivspread = [\n"
+    let glData,ulData = Calculate id
+    for a = 0 to 15 do
+        fileRef.Write "\t[\n"
+        for d = 0 to 15 do
+            fileRef.Write "\t\t[\n"
+            for h = 0 to 15 do
+                let jsGL = parseToJS glData.[a,d,h]
+                let jsUL = parseToJS ulData.[a,d,h]
+                
+                fileRef.Write "\t\t\t["
+                fileRef.Write (jsGL+","+jsUL)
+
+                if h = 15 then fileRef.Write "]\n"
+                else fileRef.Write "],\n"
+
+            if d = 15 then fileRef.Write "\t\t]\n"
+            else fileRef.Write "\t\t],\n"
+
+        if a = 15 then fileRef.Write "\t]\n"
+        else fileRef.Write "\t],\n"
+
+    fileRef.Write "];\n\n"
+    fileRef.Write """loadScript("./calculate.js");"""
+    fileRef.Close ()
+
+
+
+for id = 0 to 696 do
+    WriteFile id
+
+
+
+
+
+
+
+(*
+type pvpdataClass (ivs: ivs,level: level,cp:cp,statdata:statdata,rank:rank) =
+    override this.ToString() =
+        let atk,def,hp = ivs
+        let rAtk,rDef,rHp,product = statdata
+        sprintf "[%i/%i/%i,%A,%i,%3.2f,%3.2f,%i,%i,%A]" atk def hp level cp rAtk rDef rHp product rank
+*)
+
+
 
 (*
 let Level2CpM (level) =
@@ -823,84 +993,30 @@ let Level2CpM (level) =
     //(CpM_n^2 - CpM_1^2) / (level_n - level_1) = (CpM_2^2 - CpM_1^2) / (level_2 - level_1)
 *)
 
-let Level2CpM (level: level) =
-    let halflevel = if snd level then 1 else 0
-    let i = 2*(fst level) + halflevel - 2
-    snd cpms.[i]
-
-let Cp (atk) (def) (hp) (cpm) : int =
-    int ((atk * sqrt(def) * sqrt(hp) * (cpm ** 2.0)) / 10.0)
-
-let RealStat (basestat) (iv) (level: level) : float =
-    float (basestat + iv) * Level2CpM level
-
-let Level (atk) (def) (hp) (cp) =
-    ()
-
-//CP*Level*Atk*Def*HP*Statproduct
-type stats = (int*level*float*float*float*float)
-
-let Calculate (id: int) : (stats[][][] * stats[][][])  =
-    let mutable level : level = (1,false)
-    let (_,_,strHP,strAtk,strDef) = basestats.[id]
-    let baseHP, baseAtk, baseDef = int strHP, int strAtk, int strDef
-    let glData = Array.create 16 (Array.create 16 (Array.create 16 (0,level,0.0,0.0,0.0,0.0)))
-    let ulData = Array.create 16 (Array.create 16 (Array.create 16 (0,level,0.0,0.0,0.0,0.0)))
-    for atkIV = 0 to 15 do
-        for defIV = 0 to 15 do
-            for hpIV = 0 to 15 do
-                level <- (1,false)
-                let mutable isCalcing = true
-                //(cp,level,realAtk,realDef,realHP,statProduct)
-                let mutable glStats = (0,level,0.0,0.0,0.0,0.0)
-                let mutable ulStats = (0,level,0.0,0.0,0.0,0.0)
-                while isCalcing do
-                    let realAtk = RealStat baseAtk atkIV level
-                    let realDef = RealStat baseDef defIV level
-                    let realHP =  float (int(RealStat baseHP hpIV level))
-                    let totAtk = float (baseAtk + atkIV)
-                    let totDef = float (baseDef + defIV)
-                    let totHP = float(baseHP + hpIV)
+//Kladde
+                (*while isCalcing do
+                    let realAtk = RealStat atkBase atkIV level
+                    let realDef = RealStat defBase defIV level
+                    let realHP =  float (int(RealStat hpBase hpIV level))
+                    let totAtk = float (atkBase + atkIV)
+                    let totDef = float (defBase + defIV)
+                    let totHP = float(hpBase + hpIV)
                     let cpm = Level2CpM level
                     let cp = Cp totAtk totDef totHP cpm
                     let statProduct = realAtk * realDef * realHP
                     if cp <= 1500 then
-                        glStats <- (cp,level,realAtk,realDef,realHP,statProduct)
+                        glStats <- ((atkIV,defIV,hpIV),cp,level,realAtk,realDef,realHP,statProduct)
                         if level = (45,false) then
                             isCalcing <- false
                         else level <-
-                            if snd level then (fst level + 1, false)
-                            else (fst level, true)
+                                if snd level then (fst level + 1, false)
+                                else (fst level, true)
                     elif cp <= 2500 then
-                        ulStats <- (cp,level,realAtk,realDef,realHP,statProduct)
+                        ulStats <- ((atkIV,defIV,hpIV),cp,level,realAtk,realDef,realHP,statProduct)
                         if level = (45,false) then
                             isCalcing <- false
                         else level <-
-                            if snd level then (fst level + 1, false)
-                            else (fst level, true)
+                                if snd level then (fst level + 1, false)
+                                else (fst level, true)
                     else
-                        isCalcing <- false
-                //Save data
-                //printfn "%i/%i/%i: GL(%A) UL(%A)" atkIV defIV hpIV glStats ulStats
-                glData.[atkIV].[defIV].[hpIV] <- glStats
-                ulData.[atkIV].[defIV].[hpIV] <- ulStats
-    (ulData, glData)
-
-
-let WriteFile (id: int) =
-    let path = string id + ".js"
-    let fileRef = System.IO.File.CreateText path
-    //Write stuff
-    fileRef.Write "var ivspread = ["
-
-    Calculate id
-
-    fileRef.Close ()
-
-let test = Level2CpM (45,false)
-printfn "%A" test
-let test2 = Calculate 266
-let gltest = fst test2
-let ultest = snd test2
-printfn "%A" gltest.[15].[15].[15]
-//WriteFile 2
+                        isCalcing <- false*)
