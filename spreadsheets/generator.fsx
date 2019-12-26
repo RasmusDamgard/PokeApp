@@ -703,12 +703,13 @@ let MAXLEVEL = (45,false)
 //Level 36,true) is represented as (36,true)
 type level = (int*bool)
 //RealAtk,RealDef,RealHp,StatProduct
-type statdata = (float*float*int*int)
+//type statdata = (float*float*int*int)
+type statproduct = int
 type ivs = (int*int*int)
 type cp = int
 //PvP#,PvP%
 type rank = (int*float)
-type pvpdata = ivs*level*cp*statdata*rank
+type pvpdata = level*statproduct*rank
 
 let cpms : (level*float) array =
     [|((1,false),0.094);
@@ -814,15 +815,12 @@ let RealStat (corestat) (level: level) : float =
     let cpm = Level2CpM level
     float corestat * cpm
 
-let FindStatData (atk: int) (def: int) (hp: int) (level: level) : statdata =
+let FindStatProduct (atk: int) (def: int) (hp: int) (level: level) : statproduct =
     let rAtk = RealStat atk level
     let rDef = RealStat def level
     let rHp = int (RealStat hp level)
     let product = int (rAtk * rDef * float rHp)
-    (rAtk, rDef, rHp, product)
-
-//let Level (atk) (def) (hp) (cp) =
-//    ()
+    product
 
 let LevelUp (level: level) =
     if snd level then (fst level + 1, false)
@@ -841,83 +839,100 @@ let FindPvPLevels (atk) (def) (hp) =
     let fstLvl = (1,false)
     helper fstLvl (fstLvl, fstLvl)
 
-let Calculate (id: int) : (pvpdata [,,] * pvpdata [,,]) =
+let Calculate (id: int) : (pvpdata [,,] * pvpdata [,,] * pvpdata [,,]) =
     let (_,_,strHP,strAtk,strDef) = basestats.[id]
     let hpBase, atkBase, defBase = int strHP, int strAtk, int strDef
     let glData = Array3D.zeroCreate 16 16 16
     let ulData = Array3D.zeroCreate 16 16 16
+    let mlData = Array3D.zeroCreate 16 16 16
     for atkIV = 0 to 15 do
         for defIV = 0 to 15 do
             for hpIV = 0 to 15 do
-                let ivs = (atkIV, defIV, hpIV)
+                //let ivs = (atkIV, defIV, hpIV)
                 let atk = atkBase + atkIV
                 let def = defBase + defIV
                 let hp = hpBase + hpIV
                 let glLevel, ulLevel = FindPvPLevels atk def hp
-                let glCp = Cp atk def hp glLevel
-                let ulCp = Cp atk def hp ulLevel
-                let glStatData = FindStatData atk def hp glLevel
-                let ulStatData = FindStatData atk def hp ulLevel
-                let glStats = (ivs,glLevel,glCp,glStatData,(0,0.0))
-                let ulStats = (ivs,ulLevel,ulCp,ulStatData,(0,0.0))
+                let mlLevel = MAXLEVEL
+                //let glCp = Cp atk def hp glLevel
+                //let ulCp = Cp atk def hp ulLevel
+                let glStatData = FindStatProduct atk def hp glLevel
+                let ulStatData = FindStatProduct atk def hp ulLevel
+                let mlStatData = FindStatProduct atk def hp mlLevel
+                let glStats = (glLevel,glStatData,(0,0.0))
+                let ulStats = (ulLevel,ulStatData,(0,0.0))
+                let mlStats = (mlLevel,mlStatData,(0,0.0))
                 glData.[atkIV,defIV,hpIV] <- glStats
                 ulData.[atkIV,defIV,hpIV] <- ulStats
-
+                mlData.[atkIV,defIV,hpIV] <- mlStats
 //pvpData mapped unto a 1d array for sorting.
-    let glCopy = Array.zeroCreate<pvpdata> 4096
-    let ulCopy = Array.zeroCreate<pvpdata> 4096
+    let glCopy = Array.zeroCreate 4096
+    let ulCopy = Array.zeroCreate 4096
+    let mlCopy = Array.zeroCreate 4096
     for i = 0 to 15 do
         for j = 0 to 15 do
             for k = 0 to 15 do
                 let index = i + 16 * (j + 16 * k)
-                glCopy.[index] <- glData.[i,j,k]
-                ulCopy.[index] <- ulData.[i,j,k]
-
+                glCopy.[index] <- ((i,j,k),glData.[i,j,k])
+                ulCopy.[index] <- ((i,j,k),ulData.[i,j,k])
+                mlCopy.[index] <- ((i,j,k),mlData.[i,j,k])
+//Sort 1d copy according to stat product,
     let sorter elem =
-        let (_,_,_,(_,_,_,product),_) = elem
+        let (_,(_,product,_)) = elem
         -product //Sort reverse
     Array.sortInPlaceBy sorter glCopy
     Array.sortInPlaceBy sorter ulCopy
-
+    Array.sortInPlaceBy sorter mlCopy
+//Map rankings of 3d array according to sorted 1d array,
     let glRankAssigner i elem =
-        let (ivs,_,_,(_,_,_,product),_) = elem
-        let (_,_,_,(_,_,_,bestProduct),_) = glCopy.[0]
+        let (ivs,(_,product,_)) = elem
+        let (_,(_,bestProduct,_)) = glCopy.[0]
         let (a,d,h) = ivs
         let percent = float product / float bestProduct * 100.0
         let rank = (i+1, percent)
-        let (c1,c2,c3,c4,_) = glData.[a,d,h]
-        glData.[a,d,h] <- (c1,c2,c3,c4,rank)
+        let (c1,c2,_) = glData.[a,d,h]
+        glData.[a,d,h] <- (c1,c2,rank)
     let ulRankAssigner i elem =
-        let (ivs,_,_,(_,_,_,product),_) = elem
-        let (_,_,_,(_,_,_,bestProduct),_) = ulCopy.[0]
+        let (ivs,(_,product,_)) = elem
+        let (_,(_,bestProduct,_)) = ulCopy.[0]
         let (a,d,h) = ivs
         let percent = float product / float bestProduct * 100.0
         let rank = (i+1, percent)
-        let (c1,c2,c3,c4,_) = ulData.[a,d,h]
-        ulData.[a,d,h] <- (c1,c2,c3,c4,rank)
+        let (c1,c2,_) = ulData.[a,d,h]
+        ulData.[a,d,h] <- (c1,c2,rank)
+    let mlRankAssigner i elem =
+        let (ivs,(_,product,_)) = elem
+        let (_,(_,bestProduct,_)) = mlCopy.[0]
+        let (a,d,h) = ivs
+        let percent = float product / float bestProduct * 100.0
+        let rank = (i+1, percent)
+        let (c1,c2,_) = mlData.[a,d,h]
+        mlData.[a,d,h] <- (c1,c2,rank)
     Array.iteri glRankAssigner glCopy
     Array.iteri ulRankAssigner ulCopy
+    Array.iteri mlRankAssigner mlCopy
 
-    (glData, ulData) //Returned as tuple
+    (glData, ulData, mlData) //Returned as tuple
 
 let parseToJS (data: pvpdata) =
-    let (_,(wholeLevels,halfLevel),cp,(atk,def,hp,product),(rank,percent)) = data
+    let ((wholeLevels,halfLevel),product,(rank,percent)) = data
     //let jsIVS = sprintf "'%i','%i','%i'," a d h
     let jsLEVEL =
         if halfLevel then sprintf "'%i.5'," wholeLevels
         else sprintf "'%i'," wholeLevels
-    let jsCP = sprintf "'%i'," cp
-    let jsSTATS = sprintf "'%3.2f','%3.2f','%i','%i'," atk def hp product
+    //let jsCP = sprintf "'%i'," cp
+    //let jsSTATS = sprintf "'%3.2f','%3.2f','%i','%i'," atk def hp product
+    let jsPRODUCT = sprintf "'%i'," product
     let jsRANK = sprintf "'%i'," rank
     let jsPERCENT = sprintf "'%3.2f'" percent
-    (jsLEVEL+jsCP+jsSTATS+jsRANK+jsPERCENT)
+    (jsLEVEL+jsRANK+jsPERCENT)
 
 let WriteFile (id: int) =
     let path = string id + "b.js"
     let fileRef = System.IO.File.CreateText path
     //Write stuff
     fileRef.Write "var ivspread = [\n"
-    let glData,ulData = Calculate id
+    let glData,ulData,mlData = Calculate id
     for a = 0 to 15 do
         fileRef.Write "\t[\n"
         for d = 0 to 15 do
@@ -925,9 +940,10 @@ let WriteFile (id: int) =
             for h = 0 to 15 do
                 let jsGL = parseToJS glData.[a,d,h]
                 let jsUL = parseToJS ulData.[a,d,h]
-                
+                let jsML = parseToJS mlData.[a,d,h]
+
                 fileRef.Write "\t\t\t["
-                fileRef.Write (jsGL+","+jsUL)
+                fileRef.Write (jsGL+","+jsUL+","+jsML)
 
                 if h = 15 then fileRef.Write "]\n"
                 else fileRef.Write "],\n"
@@ -943,9 +959,10 @@ let WriteFile (id: int) =
     fileRef.Close ()
 
 
-
-for id = 0 to 696 do
-    WriteFile id
+if true then
+    for id = 0 to 696 do
+        WriteFile id
+else WriteFile 0
 
 
 
