@@ -711,7 +711,9 @@
 				<option value='696'>Melmetal</option>
 			</select>
 
-			<input type="checkbox" id="bestbuddy" value="b">Pokemon is Best Buddy<br>
+			<br><input type="checkbox" id="buddy">Best Buddy?
+
+			<input type="checkbox" id="lucky">Lucky?<br>
 
   			<br>
   			<input type="number" id="cp" placeholder="CP" maxlegnth="4" required>
@@ -793,10 +795,10 @@
 
 		calculate.onclick = function() {
 			var pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
-			var bestbuddy = document.getElementById("bestbuddy").checked;
+			var buddy = document.getElementById("buddy").checked;
 			//TODO: IF all inputs filled validly, then loadScript, else alert("do inputs")
 			//This script calls another scripts that calculates
-			if (bestbuddy) {loadScript("./spreadsheets/"+pokemonID+"b.js");}
+			if (buddy) {loadScript("./spreadsheets/"+pokemonID+"b.js");}
 			else {loadScript("./spreadsheets/"+pokemonID+".js");}
 		}
 	</script>
