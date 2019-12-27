@@ -4640,5 +4640,3 @@ var ivspread = [
 		]
 	]
 ];
-
-loadScript("./calculate.js");

@@ -697,7 +697,7 @@ let basestats =
     ("808","Meltan","130","118","99");
     ("809","Melmetal","264","226","190")|]
 
-let MAXLEVEL = (45,false) 
+let MAXLEVEL = (40,false) 
 
 //Level as int, and then true if half level above
 //Level 36,true) is represented as (36,true)
@@ -928,7 +928,7 @@ let parseToJS (data: pvpdata) =
     (jsLEVEL+jsRANK+jsPERCENT)
 
 let WriteFile (id: int) =
-    let path = string id + "b.js"
+    let path = string id + ".js"
     let fileRef = System.IO.File.CreateText path
     //Write stuff
     fileRef.Write "var ivspread = [\n"
@@ -954,8 +954,7 @@ let WriteFile (id: int) =
         if a = 15 then fileRef.Write "\t]\n"
         else fileRef.Write "\t],\n"
 
-    fileRef.Write "];\n\n"
-    fileRef.Write """loadScript("./calculate.js");"""
+    fileRef.Write "];"
     fileRef.Close ()
 
 

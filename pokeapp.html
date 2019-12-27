@@ -709,11 +709,11 @@
 				<option value='694'>Meloetta (Pirouette)</option>
 				<option value='695'>Meltan</option>
 				<option value='696'>Melmetal</option>
-			</select>
+			</select><br>
 
-			<br><input type="checkbox" id="buddy">Best Buddy?
-
-			<input type="checkbox" id="lucky">Lucky?<br>
+			<input type="checkbox" id="buddy">Best Buddy?
+			<input type="checkbox" id="lucky">Lucky?
+			<input type="checkbox" id="purified">Purified?<br>
 
   			<br>
   			<input type="number" id="cp" placeholder="CP" maxlegnth="4" required>
@@ -785,21 +785,39 @@
 	<script src="./levelchart.js"></script>
 
 	<script>
-		var loadScript = function(src) {
+		function LoadScript (src) {
 			var script = document.createElement('script');
 			script.setAttribute('src', src);
-			document.body.appendChild(script);
+			document.body.appendChild(script)
+			console.log("loadscript :" + src)
 		}
 
 		var calculate = document.getElementById("calculate");
 
+		var ivspread = [];
+
 		calculate.onclick = function() {
 			var pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
 			var buddy = document.getElementById("buddy").checked;
-			//TODO: IF all inputs filled validly, then loadScript, else alert("do inputs")
+			//TODO: IF all inputs filled validly, then LoadScript, else alert("do inputs")
+			var fileExtension = function () {if (buddy) {return "b.js"} else {return ".js"}};
+			var isLoaded = false;
 			//This script calls another scripts that calculates
-			if (buddy) {loadScript("./spreadsheets/"+pokemonID+"b.js");}
-			else {loadScript("./spreadsheets/"+pokemonID+".js");}
+			function LoadAllEvolutions (id) {
+				var evolutions = basestats[id].slice(5);
+				for (i = 0; i < evolutions.length; i++){
+					var evoID = parseInt(evolutions[i]);
+					LoadScript("./spreadsheets/"+evoID+fileExtension());
+					setTimeout(LoadAllEvolutions (evoID),1000);
+				}
+			}
+			function Printer(num) {console.log("test " + num);}
+			//eliminate race condition: Make sure calculate.js is only called after spreadsheets
+			LoadScript("./spreadsheets/"+pokemonID+fileExtension());
+			setTimeout(LoadAllEvolutions(pokemonID),1000);
+			setTimeout(LoadScript("./calculate.js"),5000);
+			setTimeout(Printer(1),2000);
+			setTimeout(Printer(2),2000);
 		}
 	</script>
 	
