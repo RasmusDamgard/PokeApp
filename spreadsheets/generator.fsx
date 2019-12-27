@@ -697,7 +697,718 @@ let basestats =
     ("808","Meltan","130","118","99");
     ("809","Melmetal","264","226","190")|]
 
-let MAXLEVEL = (40,false) 
+let evolutions =
+    [|
+        [1];
+        [2];
+        [];
+        [4];
+        [5];
+        [];
+        [7];
+        [8];
+        [];
+        [10];
+        [11];
+        [];
+        [13];
+        [14];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [151;152;153];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [283;285];
+        [284];
+        [];
+        [286];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+        [];
+    |]
+
+let EvolutionUpdater () =
+    for id = 0 to evolutions.Length - 1 do
+        let list = evolutions.[id]
+        let len = list.Length
+        if len <= 1 then ()
+        else
+            evolutions.[list.Head] <- list.Tail@evolutions.[list.Head]
+            evolutions.[id] <- [list.Head]
+
+EvolutionUpdater()
 
 //Level as int, and then true if half level above
 //Level 36,true) is represented as (36,true)
@@ -826,20 +1537,20 @@ let LevelUp (level: level) =
     if snd level then (fst level + 1, false)
     else (fst level, true)
 
-let FindPvPLevels (atk) (def) (hp) =
+let FindPvPLevels (atk) (def) (hp) (maxlevel) =
     let rec helper level acc =
         let cp = Cp atk def hp level
         if cp <= 1500 then 
-            if level = MAXLEVEL then (level, level)
+            if level = maxlevel then (level, level)
             else helper (LevelUp level) (level, level)
         elif cp <= 2500 then
-            if level = MAXLEVEL then (fst acc, level)
+            if level = maxlevel then (fst acc, level)
             else helper (LevelUp level) (fst acc, level)
         else acc
     let fstLvl = (1,false)
     helper fstLvl (fstLvl, fstLvl)
 
-let Calculate (id: int) : (pvpdata [,,] * pvpdata [,,] * pvpdata [,,]) =
+let Calculate (id: int) (maxlevel: level) : (pvpdata [,,] * pvpdata [,,] * pvpdata [,,]) =
     let (_,_,strHP,strAtk,strDef) = basestats.[id]
     let hpBase, atkBase, defBase = int strHP, int strAtk, int strDef
     let glData = Array3D.zeroCreate 16 16 16
@@ -852,8 +1563,8 @@ let Calculate (id: int) : (pvpdata [,,] * pvpdata [,,] * pvpdata [,,]) =
                 let atk = atkBase + atkIV
                 let def = defBase + defIV
                 let hp = hpBase + hpIV
-                let glLevel, ulLevel = FindPvPLevels atk def hp
-                let mlLevel = MAXLEVEL
+                let glLevel, ulLevel = FindPvPLevels atk def hp maxlevel
+                let mlLevel = maxlevel
                 //let glCp = Cp atk def hp glLevel
                 //let ulCp = Cp atk def hp ulLevel
                 let glStatData = FindStatProduct atk def hp glLevel
@@ -916,23 +1627,25 @@ let Calculate (id: int) : (pvpdata [,,] * pvpdata [,,] * pvpdata [,,]) =
 
 let parseToJS (data: pvpdata) =
     let ((wholeLevels,halfLevel),product,(rank,percent)) = data
-    //let jsIVS = sprintf "'%i','%i','%i'," a d h
     let jsLEVEL =
-        if halfLevel then sprintf "'%i.5'," wholeLevels
-        else sprintf "'%i'," wholeLevels
-    //let jsCP = sprintf "'%i'," cp
-    //let jsSTATS = sprintf "'%3.2f','%3.2f','%i','%i'," atk def hp product
-    let jsPRODUCT = sprintf "'%i'," product
-    let jsRANK = sprintf "'%i'," rank
-    let jsPERCENT = sprintf "'%3.2f'" percent
+        if halfLevel then sprintf "%i.5," wholeLevels
+        else sprintf "%i," wholeLevels
+    let jsPRODUCT = sprintf "%i," product
+    let jsRANK = sprintf "%i," rank
+    let jsPERCENT = sprintf "%3.2f" percent
     (jsLEVEL+jsRANK+jsPERCENT)
 
-let WriteFile (id: int) =
-    let path = string id + ".js"
+let WriteFile (id: int) (buddy: bool)=
+    let maxlevel = if buddy then (45,false) else (40,false)
+    let ext = if buddy then "b.js" else ".js"
+    let path = string id + ext
     let fileRef = System.IO.File.CreateText path
+
+    let family = evolutions.[id]
+
     //Write stuff
-    fileRef.Write "var ivspread = [\n"
-    let glData,ulData,mlData = Calculate id
+    fileRef.Write "pvpdata.push([\n"
+    let glData,ulData,mlData = Calculate id maxlevel
     for a = 0 to 15 do
         fileRef.Write "\t[\n"
         for d = 0 to 15 do
@@ -954,85 +1667,37 @@ let WriteFile (id: int) =
         if a = 15 then fileRef.Write "\t]\n"
         else fileRef.Write "\t],\n"
 
-    fileRef.Write "];"
+    fileRef.Write "]);\n"
+    let familyStr = sprintf "family.push(%i);\n" id
+    fileRef.Write familyStr
+
+    if not family.IsEmpty then
+        let nextStr = "LoadScript(\"./spreadsheets/" + string family.Head + ext + "\");\n"
+        fileRef.Write nextStr
+    else
+        fileRef.Write "LoadScript(\"./calculate.js\");"
     fileRef.Close ()
 
 
-if true then
+if false then
     for id = 0 to 696 do
-        WriteFile id
-else WriteFile 0
+        WriteFile id true
+        WriteFile id false
+else
+    WriteFile 0 false
+    WriteFile 1 false
+    WriteFile 2 false
+    WriteFile 3 false
+    WriteFile 4 false
+    WriteFile 5 false
+    WriteFile 150 false
+    WriteFile 151 false
+    WriteFile 152 false
+    WriteFile 153 false
+    WriteFile 282 false
+    WriteFile 283 false
+    WriteFile 284 false
+    WriteFile 285 false
+    WriteFile 286 false
 
 
-
-
-
-
-
-(*
-type pvpdataClass (ivs: ivs,level: level,cp:cp,statdata:statdata,rank:rank) =
-    override this.ToString() =
-        let atk,def,hp = ivs
-        let rAtk,rDef,rHp,product = statdata
-        sprintf "[%i/%i/%i,%A,%i,%3.2f,%3.2f,%i,%i,%A]" atk def hp level cp rAtk rDef rHp product rank
-*)
-
-
-
-(*
-let Level2CpM (level) =
-    let intLevel =
-        if 
-    let truncLevel =
-        if level < 10 then 1,10
-        elif level = 10 then 1,20
-        elif level < 20 then 10,20
-        elif level = 30 then 20,40
-        elif level < 40 then 30,40
-        elif level = 40 then 30,45
-        else 40,45
-    let CpM_down = 
-        match fst truncLevel with
-        | 1 -> 0.094
-        | 10 -> 0.4225
-        | 20 -> 0.5974
-        | 30 -> 0.7317
-        | 40 -> 0.7903
-    let CpM_up = 
-        match snd truncLevel with
-        | 10 -> 0.4225
-        | 20 -> 0.5974
-        | 30 -> 0.7317
-        | 40 -> 0.7903
-        | 45 -> 0.8153
-    CpM_down, CpM_up
-    //(CpM_n^2 - CpM_1^2) / (level_n - level_1) = (CpM_2^2 - CpM_1^2) / (level_2 - level_1)
-*)
-
-//Kladde
-                (*while isCalcing do
-                    let realAtk = RealStat atkBase atkIV level
-                    let realDef = RealStat defBase defIV level
-                    let realHP =  float (int(RealStat hpBase hpIV level))
-                    let totAtk = float (atkBase + atkIV)
-                    let totDef = float (defBase + defIV)
-                    let totHP = float(hpBase + hpIV)
-                    let cpm = Level2CpM level
-                    let cp = Cp totAtk totDef totHP cpm
-                    let statProduct = realAtk * realDef * realHP
-                    if cp <= 1500 then
-                        glStats <- ((atkIV,defIV,hpIV),cp,level,realAtk,realDef,realHP,statProduct)
-                        if level = (45,false) then
-                            isCalcing <- false
-                        else level <-
-                                if snd level then (fst level + 1, false)
-                                else (fst level, true)
-                    elif cp <= 2500 then
-                        ulStats <- ((atkIV,defIV,hpIV),cp,level,realAtk,realDef,realHP,statProduct)
-                        if level = (45,false) then
-                            isCalcing <- false
-                        else level <-
-                                if snd level then (fst level + 1, false)
-                                else (fst level, true)
-                    else
-                        isCalcing <- false*)

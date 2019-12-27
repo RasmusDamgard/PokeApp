@@ -783,43 +783,35 @@
 
 	<script src="./basestats.js"></script>
 	<script src="./levelchart.js"></script>
+	<script src="./families.js"></script>
 
 	<script>
 		function LoadScript (src) {
 			var script = document.createElement('script');
 			script.setAttribute('src', src);
-			document.body.appendChild(script)
-			console.log("loadscript :" + src)
+			script.setAttribute('class', "AddedDynamically");
+			document.body.appendChild(script);
 		}
+		//TODO: Make pokesmons load family correctly for pokemons with several evolution paths.
+		//Is currently bugged with pokemons like Silcoon.
 
 		var calculate = document.getElementById("calculate");
-
-		var ivspread = [];
+		var pvpdata = [];
+		var family = [];
 
 		calculate.onclick = function() {
 			var pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
 			var buddy = document.getElementById("buddy").checked;
 			//TODO: IF all inputs filled validly, then LoadScript, else alert("do inputs")
-			var fileExtension = function () {if (buddy) {return "b.js"} else {return ".js"}};
-			var isLoaded = false;
-			//This script calls another scripts that calculates
-			function LoadAllEvolutions (id) {
-				var evolutions = basestats[id].slice(5);
-				for (i = 0; i < evolutions.length; i++){
-					var evoID = parseInt(evolutions[i]);
-					LoadScript("./spreadsheets/"+evoID+fileExtension());
-					setTimeout(LoadAllEvolutions (evoID),1000);
-				}
+			//TODO: Calculate if cp is valid, based on pokemon
+			var elems = document.getElementsByClassName("AddedDynamically");
+			while(elems.length > 0){
+				elems[0].parentNode.removeChild(elems[0]);
 			}
-			function Printer(num) {console.log("test " + num);}
-			//eliminate race condition: Make sure calculate.js is only called after spreadsheets
-			LoadScript("./spreadsheets/"+pokemonID+fileExtension());
-			setTimeout(LoadAllEvolutions(pokemonID),1000);
-			setTimeout(LoadScript("./calculate.js"),5000);
-			setTimeout(Printer(1),2000);
-			setTimeout(Printer(2),2000);
+			//This script calls another scripts that calculates
+			if (buddy) {LoadScript("./spreadsheets/"+pokemonID+"b.js")}
+			else {LoadScript("./spreadsheets/"+pokemonID+".js")};
 		}
 	</script>
-	
 </body>
-</htmllang="en">
+</html>
