@@ -1,53 +1,132 @@
 body {
+	--background-dark: #222222;
+	--foreground-dark: #333333;
+	--gl-blue: #242ec0;
+	--gl-stripe: #ab2e35;
+	--ul-black: #322d33;
+	--ul-stripe: #be8d1e;
+	--ml-purple: #301374;
+	--ml-stripe: #bd23b7;
+
 	padding: 0;
 	margin: 0;
+	background-color: var(--background-dark);
+	color: white;
+	font-size: 20px;
 }
 
+h1 {
+	margin: 0;
+	text-align: center;
+	line-height: 15vh;
+	font-size: 48px;
+}
 form {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+	margin-left: 15%;
+	margin-right: 15%;
 }
 input {
-	border: none;
-  	border-bottom: 1px solid grey;
-  	height: 5%;
-  	margin-top: 3%;
+	border: 2px solid black;
+	color: white;
+	background-color: var(--foreground-dark);
+	padding: .50rem;
 }
-
 select {
 	padding: .50rem;
-  	height: 5%;
-  	margin-top: 3%;
-  	-webkit-appearance: none;
-  	border-color: grey;
-  	background-color: white;
-  	width: 2.5%;
+	-webkit-appearance: none;
+	border: 2px solid black;
+	background-color: var(--foreground-dark);
+	color: white;
+	width: 2.5%;
 }
+
 
 #top-image {
 	height: 15vh;
 	width: 100%;
-	background-color: lightblue;
+	background-color: var(--foreground-dark);
+	
 }
 
-#data-input {
-	height: 60%;
+
+
+#species-and-cp-container {
+	height: 10vh;
+	margin-top: 5vh;
+}
+#_ChosenPokemon, #_Cp{
+	width: 42%;
+	height: 100%;
+	font-size: 20px;
+}
+#_ChosenPokemon{
+	float: left;
+	overflow-y: visible;
+}
+#_Cp{
+	width: 42%;
+	height: 100%;
+	float:right;
+	box-sizing: border-box;
 }
 
-#data-container {
-	margin-left: 2%;
-	margin-right: 2%;
-	margin-top: 2%;
-	background-color: red;
+#ivs-checkboxes-container{
+	width: 100%;
+	height: 5vh;
+	margin-top: 5vh;
+	text-align: center;
+}
+#ivs-checkboxes-container select{
+	width: 6%;
+	margin-left: 6%;
+	height: 100%;
+	padding: 0.5rem;
+	text-align: center;
+	vertical-align: center;
+	float:left;
+	font-size: 20px;
+}
+#ivs-checkboxes-container div{
+	float: right;
+	height: 100%;
+	margin-right: 4%;
+	width: 8%;
+	font-size: 20px;
+}
+
+
+
+#calculate-button-container{
+	width: 100%;
+	margin-top: 5vh;
+	text-align: center;
+}
+#calculate-button{
+	width: 20%;
+	padding: .5rem;
+	font-size: 32px;
+}
+
+
+
+#output-container {
+	margin-left: 2vw;
+	margin-right: 2vw;
+	margin-top: 5vh;
+	background-color: var(--foreground-dark);
 	padding: 0.5%;
 }
 
 ._pokemon-container {
-	height: 10vh;
-	border: 2px solid blue;
+	border: 2px solid black;
 }
-
+._pokemon-container div {
+	display: inline-block;
+}
+._pokemon-container span {
+	line-height: 160%;
+	padding: 0.5rem;
+}
 .__pokemon-data{
 	height: 100%;
 	width: 10%;
@@ -56,5 +135,15 @@ select {
 .__gl-data{
 	height: 100%;
 	width: 30%;
-	background-color: ;
+	background-color: var(--gl-blue);
+}
+.__ul-data{
+	height: 100%;
+	width: 30%;
+	background-color: var(--ul-black);
+}
+.__ml-data{
+	height: 100%;
+	width: 30%;
+	background-color: var(--ml-purple);
 }

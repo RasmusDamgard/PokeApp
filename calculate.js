@@ -5,14 +5,14 @@
 //var family
 
 //INPUT DATA
-var id = parseInt(document.getElementById("pokemon_chosen").value);
-var cp = parseInt(document.getElementById("cp").value);
-var atkIV = parseInt(document.getElementById("atk").value);
-var defIV = parseInt(document.getElementById("def").value);
-var hpIV = parseInt(document.getElementById("hp").value);
-var isBuddy = document.getElementById("buddy").checked;
-var isLucky = document.getElementById("lucky").checked;
-var isPurified = document.getElementById("purified").checked;
+var id = parseInt(document.getElementById("_ChosenPokemon").value);
+var cp = parseInt(document.getElementById("_Cp").value);
+var atkIV = parseInt(document.getElementById("_Atk").value);
+var defIV = parseInt(document.getElementById("_Def").value);
+var hpIV = parseInt(document.getElementById("_Hp").value);
+var isBuddy = document.getElementById("_Buddy").checked;
+var isLucky = document.getElementById("_Lucky").checked;
+var isPurified = document.getElementById("_Purified").checked;
 
 //GENERAL DATA
 var level = GetLevel(cp,
@@ -73,15 +73,7 @@ class Pokemon {
     }
 }
 
-for (i = 0; i < family.length; i++)
-{
-    console.log("");
-    pokemon = new Pokemon(family[i], pvpdata[i]);
-    pokemon.PrintStats();
-    pokemon.PrintPvPStats();
-}
 
-//TODO: Fix
 function GetLevel (cp, atk, def, hp) {
     var cpm = Math.sqrt((cp*10)/(atk*Math.sqrt(def)*Math.sqrt(hp)));
     var min = 0;
@@ -107,7 +99,40 @@ function GetStardust (){
     return 0; //TODO
 }
 
+//OUTPUT REFERENCES
+var outputContainer = document.getElementById("output-container")
+
+
+for (var i = 0; i < family.length; i++)
+{
+    console.log("");
+    var pokemon = new Pokemon(family[i], pvpdata[i]);
+    pokemon.PrintStats();
+    pokemon.PrintPvPStats();
+
+    var pokemonContainer = document.createElement("div");
+    pokemonContainer.setAttribute("class","_pokemon-container")
+    outputContainer.appendChild(pokemonContainer)
+
+    var statsContainer = document.createElement("div");
+    statsContainer.setAttribute("class", "__pokemon-data");
+    var glContainer = document.createElement("div");
+    glContainer.setAttribute("class","__gl-data");
+    var ulContainer = document.createElement("div");
+    ulContainer.setAttribute("class","__ul-data");
+    var mlContainer = document.createElement("div");
+    mlContainer.setAttribute("class","__ml-data");
+
+    pokemonContainer.appendChild(statsContainer)
+    pokemonContainer.appendChild(glContainer)
+    pokemonContainer.appendChild(ulContainer)
+    pokemonContainer.appendChild(mlContainer)
+
+    var 
+}
+
 //OUTPUT VALUES
+
 
 /*
 var title = "Level "+level+" "+name+" (#"+pokedex+")";
