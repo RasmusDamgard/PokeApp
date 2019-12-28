@@ -792,18 +792,29 @@
 			script.setAttribute('class', "AddedDynamically");
 			document.body.appendChild(script);
 		}
-		//TODO: Make pokesmons load family correctly for pokemons with several evolution paths.
-		//Is currently bugged with pokemons like Silcoon.
+		function ReachableByEvolution(idFrom, idTo) {
+			var evolutions = families[idFrom].length;
+			if (idFrom == idTo) {return(true)}
+			else if (evolutions == 0) {return(false)}
+			else {
+				//Cancerous javascript's way of doing a simple iter/fold/reduce.
+				const reducer = (acc, cur) => (acc || ReachableByEvolution(families[idFrom][cur], idTo));
+				return([...Array(evolutions).keys()].reduce(reducer, false));
+			}
+		}
 
 		var calculate = document.getElementById("calculate");
 		var pvpdata = [];
 		var family = [];
+		var pokemonID;
 
 		calculate.onclick = function() {
-			var pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
+			pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
 			var buddy = document.getElementById("buddy").checked;
 			//TODO: IF all inputs filled validly, then LoadScript, else alert("do inputs")
 			//TODO: Calculate if cp is valid, based on pokemon
+			console.log(pokemonID)
+			//Remove extra scripts
 			var elems = document.getElementsByClassName("AddedDynamically");
 			while(elems.length > 0){
 				elems[0].parentNode.removeChild(elems[0]);

@@ -1405,7 +1405,7 @@ let EvolutionUpdater () =
         let len = list.Length
         if len <= 1 then ()
         else
-            evolutions.[list.Head] <- list.Tail@evolutions.[list.Head]
+            evolutions.[list.Head] <- evolutions.[list.Head] @ list.Tail
             evolutions.[id] <- [list.Head]
 
 EvolutionUpdater()
@@ -1672,8 +1672,10 @@ let WriteFile (id: int) (buddy: bool)=
     fileRef.Write familyStr
 
     if not family.IsEmpty then
-        let nextStr = "LoadScript(\"./spreadsheets/" + string family.Head + ext + "\");\n"
+        let nextStr = "if (ReachableByEvolution(pokemonID, " + string family.Head + ")){LoadScript(\"./spreadsheets/" + string family.Head + ext + "\")}\n"
+        let endStr = "else {LoadScript(\"./calculate.js\")}"
         fileRef.Write nextStr
+        fileRef.Write endStr
     else
         fileRef.Write "LoadScript(\"./calculate.js\");"
     fileRef.Close ()
