@@ -6,12 +6,12 @@
 	<title>PokeApp</title>
 </head>
 <body>
-	<div id="top_image">
+	<div id="top-image">
 	</div>
-	<div id="data_input">
-		<form id="poke_data">
+	<div id="data-input">
+		<form id="poke-data">
   			
-			<select type="text" id="pokemon_chosen" form="poke_data" required>
+			<select type="text" id="_ChosenPokemon" form="poke-data" required>
 				<option value='0'>Bulbasaur</option>
 				<option value='1'>Ivysaur</option>
 				<option value='2'>Venusaur</option>
@@ -711,15 +711,15 @@
 				<option value='696'>Melmetal</option>
 			</select><br>
 
-			<input type="checkbox" id="buddy">Best Buddy?
-			<input type="checkbox" id="lucky">Lucky?
-			<input type="checkbox" id="purified">Purified?<br>
+			<input type="checkbox" id="_Buddy">Best Buddy?
+			<input type="checkbox" id="_Lucky">Lucky?
+			<input type="checkbox" id="_Purified">Purified?<br>
 
   			<br>
-  			<input type="number" id="cp" placeholder="CP" maxlegnth="4" required>
+  			<input type="number" id="_Cp" placeholder="CP" maxlegnth="4" required>
   			<br>
 
-  			<select id="atk" form="poke_data" required>
+  			<select id="_Atk" form="poke-data" required>
   				<option value="0">0</option>
   				<option value="1">1</option>
   				<option value="2">2</option>
@@ -738,7 +738,7 @@
   				<option value="15" selected="">15</option>
   			</select>
 
-  			<select id="def" style="margin-left: 7.5%;"  form="poke_data" required>
+  			<select id="_Def" style="margin-left: 7.5%;"  form="poke-data" required>
   				<option value="0">0</option>
   				<option value="1">1</option>
   				<option value="2">2</option>
@@ -757,7 +757,7 @@
   				<option value="15" selected="">15</option>
   			</select>
 
-  			<select id="hp" style="margin-left: 7.5%;" form="poke_data" required>
+  			<select id="_Hp" style="margin-left: 7.5%;" form="poke-data" required>
   				<option value="0">0</option>
   				<option value="1">1</option>
   				<option value="2">2</option>
@@ -777,8 +777,16 @@
   			</select>
   		
   			<br>
-  			<input type="button" id="calculate" value="Calculate">
+  			<input type="button" id="calculate-button" value="Calculate">
 		</form>
+	</div>
+	<div id="data-container">
+		<div class="_pokemon-container">
+			<div class="__pokemon-data"></div>
+			<div class="__gl-data"></div>
+			<div class="__ul-data"></div>
+			<div class="__ml-data"></div>
+		</div>
 	</div>
 
 	<script src="./basestats.js"></script>
@@ -789,7 +797,7 @@
 		function LoadScript (src) {
 			var script = document.createElement('script');
 			script.setAttribute('src', src);
-			script.setAttribute('class', "AddedDynamically");
+			script.setAttribute('class', "_AddedDynamically");
 			document.body.appendChild(script);
 		}
 		function ReachableByEvolution(idFrom, idTo) {
@@ -803,19 +811,19 @@
 			}
 		}
 
-		var calculate = document.getElementById("calculate");
+		var calculate = document.getElementById("calculate-button");
 		var pvpdata = [];
 		var family = [];
 		var pokemonID;
 
 		calculate.onclick = function() {
-			pokemonID = parseInt(document.getElementById("pokemon_chosen").value);
-			var buddy = document.getElementById("buddy").checked;
+			pokemonID = parseInt(document.getElementById("_ChosenPokemon").value);
+			var buddy = document.getElementById("_Buddy").checked;
 			//TODO: IF all inputs filled validly, then LoadScript, else alert("do inputs")
 			//TODO: Calculate if cp is valid, based on pokemon
 			console.log(pokemonID)
 			//Remove extra scripts
-			var elems = document.getElementsByClassName("AddedDynamically");
+			var elems = document.getElementsByClassName("_AddedDynamically");
 			while(elems.length > 0){
 				elems[0].parentNode.removeChild(elems[0]);
 			}

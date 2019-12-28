@@ -1,13 +1,6 @@
-* {
+body {
 	padding: 0;
 	margin: 0;
-	height: 100%;
-}
-
-#top_image {
-	height: 20%;
-	width: 100%;
-	background-color: lightblue;
 }
 
 form {
@@ -30,4 +23,38 @@ select {
   	border-color: grey;
   	background-color: white;
   	width: 2.5%;
+}
+
+#top-image {
+	height: 15vh;
+	width: 100%;
+	background-color: lightblue;
+}
+
+#data-input {
+	height: 60%;
+}
+
+#data-container {
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-top: 2%;
+	background-color: red;
+	padding: 0.5%;
+}
+
+._pokemon-container {
+	height: 10vh;
+	border: 2px solid blue;
+}
+
+.__pokemon-data{
+	height: 100%;
+	width: 10%;
+	background-color: grey;
+}
+.__gl-data{
+	height: 100%;
+	width: 30%;
+	background-color: ;
 }
