@@ -101,7 +101,7 @@ function GetStardust (){
 
 //OUTPUT REFERENCES
 var outputContainer = document.getElementById("output-container")
-
+var template = document.getElementsByClassName("_pokemon-container")[0];
 
 for (var i = 0; i < family.length; i++)
 {
@@ -110,25 +110,11 @@ for (var i = 0; i < family.length; i++)
     pokemon.PrintStats();
     pokemon.PrintPvPStats();
 
-    var pokemonContainer = document.createElement("div");
-    pokemonContainer.setAttribute("class","_pokemon-container")
-    outputContainer.appendChild(pokemonContainer)
-
-    var statsContainer = document.createElement("div");
-    statsContainer.setAttribute("class", "__pokemon-data");
-    var glContainer = document.createElement("div");
-    glContainer.setAttribute("class","__gl-data");
-    var ulContainer = document.createElement("div");
-    ulContainer.setAttribute("class","__ul-data");
-    var mlContainer = document.createElement("div");
-    mlContainer.setAttribute("class","__ml-data");
-
-    pokemonContainer.appendChild(statsContainer)
-    pokemonContainer.appendChild(glContainer)
-    pokemonContainer.appendChild(ulContainer)
-    pokemonContainer.appendChild(mlContainer)
-
-    var 
+    var clone = template.content.cloneNode(true);
+    var newContainer = document.createElement("div");
+    newContainer.setAttribute("class", "_pokemon-container")
+    newContainer.appendChild(clone);
+    outputContainer.appendChild(newContainer);
 }
 
 //OUTPUT VALUES
