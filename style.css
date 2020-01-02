@@ -1,6 +1,6 @@
 body {
-	--background-dark: #222222;
-	--foreground-dark: #333333;
+	--background-dark: #181818;
+	--foreground-dark: #282828;
 	--gl-blue: #242ec0;
 	--gl-stripe: #ab2e35;
 	--ul-black: #322d33;
@@ -119,17 +119,19 @@ select {
 
 #_output-header {
 	border: 2px solid black;
+	height: 10vh;
 }
 #_output-header div {
-	display: inline-block;
-	line-height: 9vh;
+	display: inline-flex;
+	line-height: 10vh;
 }
 #_output-header div img {
 	height: 10vh;
 	width: 10vh;
+	float: left;
 }
 #__corner-header{
-	background-color: black;
+	background-color: var(--foreground-dark);
 	width: 10%;
 	height: 10vh;
 }
@@ -157,28 +159,59 @@ select {
 }
 ._pokemon-container div {
 	display:inline-block;
+	padding: 0.5vw;
+	box-sizing: border-box;
 }
 ._pokemon-container span {
-	line-height: 160%;
-	padding: 0.5rem;
+	line-height: 5vh;
 }
 .__pokemon-data{
-	height: 10vh;
+	height: 12vh;
 	width: 10%;
-	background-color: grey;
+	background-color: var(--foreground-dark);
 }
 .__gl-data{
-	height: 10vh;
+	height: 12vh;
 	width: 30%;
 	background-color: var(--gl-blue);
 }
 .__ul-data{
-	height: 10vh;
+	height: 12vh;
 	width: 30%;
 	background-color: var(--ul-black);
 }
 .__ml-data{
-	height: 10vh;
+	height: 12vh;
 	width: 30%;
 	background-color: var(--ml-purple);
+}
+.PokeName {
+	float:left;
+	width:100%;
+	text-align: center;
+}
+.PokeCP {
+	float:left;
+	width: 100%;
+	text-align: center;
+}
+.PokePerc{
+	float:left;
+	text-align: center;
+	width: 50%;
+}
+.PokeRank{
+	float:right;
+	text-align: center;
+	width: 50%;
+}
+.PokeStardust{
+	float: left;
+	text-align: center;
+	width: 50%;
+}
+.PokeCandy {
+	float:right;
+	text-align: center;
+	width: 50%;
 }

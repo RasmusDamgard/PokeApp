@@ -101,26 +101,46 @@ function GetStardust (){
 
 //OUTPUT REFERENCES
 var outputContainer = document.getElementById("output-container")
-var template = document.getElementsByClassName("_pokemon-container")[0];
+var template = document.getElementById("_pokemon-container-template");
 
 for (var i = 0; i < family.length; i++)
 {
-    console.log("");
     var pokemon = new Pokemon(family[i], pvpdata[i]);
     pokemon.PrintStats();
     pokemon.PrintPvPStats();
 
     var clone = template.content.cloneNode(true);
-    var newContainer = document.createElement("div");
-    newContainer.setAttribute("class", "_pokemon-container")
-    newContainer.appendChild(clone);
-    outputContainer.appendChild(newContainer);
+    outputContainer.appendChild(clone);
+
+    var _container = document.getElementsByClassName("_pokemon-container")[i];
+
+    var _stats = _container.getElementsByClassName("__pokemon-data")[0];
+    _stats.getElementsByClassName("PokeName")[0].innerHTML = pokemon.name;
+    _stats.getElementsByClassName("PokeCP")[0].innerHTML = "CP: "+pokemon.cp;
+
+    var _gl = _container.getElementsByClassName("__gl-data")[0];
+    _gl.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.glPerc+"%";
+    _gl.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.glRank;
+
+    var _ul = _container.getElementsByClassName("__ul-data")[0];
+    _ul.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.ulPerc+"%";
+    _ul.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.ulRank;
+
+    var _ml = _container.getElementsByClassName("__ml-data")[0];
+    _ml.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.mlPerc+"%";
+    _ml.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.mlRank;
+
+
 }
+
+
+
+
 
 //OUTPUT VALUES
 
 
-/*
+
 var title = "Level "+level+" "+name+" (#"+pokedex+")";
 console.log(title);
 console.log("Evolutions: " + evolutions);
@@ -145,4 +165,3 @@ console.log("Ml Level: " + mlLevel + "    " + mlLevelEvo);
 console.log("ML#: " + mlRank + "    " + mlRankEvo);
 console.log("ML%: " + mlPerc + "    " + mlPercEvo);
 console.log("");
-*/
