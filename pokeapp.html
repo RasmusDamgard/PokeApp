@@ -713,63 +713,68 @@
 				</select>
 				<input type="number" id="_Cp" placeholder="CP" maxlegnth="4" required>
 			</div>
-
 			<div id="ivs-checkboxes-container">
-				<select id="_Atk" form="poke-data" required>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15" selected="">15</option>
-				</select><select id="_Def" form="poke-data" required>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15" selected="">15</option>
-				</select><select id="_Hp" form="poke-data" required>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15" selected="">15</option>
-				</select>
-				<div id="buddy-checkbox"><input type="checkbox" id="_Buddy"><br>Best Buddy?</div>
-				<div id="lucky-checkbox"><input type="checkbox" id="_Lucky"><br>Lucky?</div>
-				<div id="purified-checkbox"><input type="checkbox" id="_Purified"><br>Purified?</div>
+				<div id="ivs-container">
+					<div id="atkiv"><select id="_Atk" form="poke-data" required>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15" selected="">15</option>
+					</select><br>Attack IV</div>
+					<div id="defiv"><select id="_Def" form="poke-data" required>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15" selected="">15</option>
+					</select><br>Defense IV</div>
+					<div id="hpiv"><select id="_Hp" form="poke-data" required>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15" selected="">15</option>
+					</select><br>HP IV</div>
+				</div>
+				<div id="checkboxes-container">
+					<div id="buddy-checkbox"><input type="checkbox" id="_Buddy"><br>Best Buddy?</div>
+					<div id="lucky-checkbox"><input type="checkbox" id="_Lucky"><br>Lucky?</div>
+					<div id="purified-checkbox"><input type="checkbox" id="_Purified"><br>Purified?</div>
+				</div>
 			</div>
 
 			<div id="calculate-button-container">
@@ -779,6 +784,7 @@
 	</div>
 
 	<div id="output-container">
+		<div id="_pokemon-title-container"><span id="_pokemon-title"></span></div>
 		<div id="_output-header">
 			<div id="__corner-header">
 			</div><div id="__gl-header"><img id="__gl-banner" src="media/gl_banner.png"><span>Great League</span>
@@ -804,8 +810,8 @@
 				</div><div class="__ml-data">
 					<span class="PokePerc"></span>
 					<span class="PokeRank"></span>
-					<span class="PokeStardust">Stardust: ??</span>
-					<span class="PokeCandy">Candy: ??</span>
+					<span class="PokeStardust"></span>
+					<span class="PokeCandy"></span>
 				</div>
 			</div>
 		</template>
@@ -815,6 +821,7 @@
 	<script src="./basestats.js"></script>
 	<script src="./levelchart.js"></script>
 	<script src="./families.js"></script>
+	<script src="./powerups.js"></script>
 
 	<script>
 		function LoadScript (src) {
@@ -823,13 +830,13 @@
 			script.setAttribute('class', "_AddedDynamically");
 			document.body.appendChild(script);
 		}
-		function ReachableByEvolution(idFrom, idTo) {
-			var evolutions = families[idFrom].length;
-			if (idFrom == idTo) {return(true)}
+		function ReachableByEvolution(fromId, toId) {
+			var evolutions = families[fromId].length;
+			if (fromId == toId) {return(true)}
 			else if (evolutions == 0) {return(false)}
 			else {
 				//Cancerous javascript's way of doing a simple iter/fold/reduce.
-				const reducer = (acc, cur) => (acc || ReachableByEvolution(families[idFrom][cur], idTo));
+				const reducer = (acc, cur) => (acc || ReachableByEvolution(families[fromId][cur], toId));
 				return([...Array(evolutions).keys()].reduce(reducer, false));
 			}
 		}
