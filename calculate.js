@@ -32,6 +32,7 @@ class Pokemon {
         this.atk = atkIV + parseInt(statline[3]);
         this.def = defIV + parseInt(statline[4]);
         this.cp = GetCp(this.atk, this.def, this.hp, level);
+        this.title = "Level "+level+" "+this.name+" (#"+this.pokedex+")";
 
         //PVP STATS
         var glStats = _pvpdata[atkIV][defIV][hpIV].slice(0, 3);
@@ -53,13 +54,22 @@ class Pokemon {
         //CALCULATIONS
         this.glCp = GetCp(this.atk, this.def, this.hp, this.glLevel);
         this.glStardust = GetStardust(level, this.glLevel);
-        this.glCandy = 0; //TODO:
+        this.glCandy = GetCandy(level, this.glLevel);
+
+        this.ulCp = GetCp(this.atk, this.def, this.hp, this.ulLevel);
+        this.ulStardust = GetStardust(level, this.ulLevel);
+        this.ulCandy = GetCandy(level, this.ulLevel);
+
+        this.mlCp = GetCp(this.atk, this.def, this.hp, this.mlLevel);
+        this.mlStardust = GetStardust(level, this.mlLevel);
+        this.mlCandy = GetCandy(level, this.mlLevel);
     }
 
     PrintStats(){
         console.log("Pokemon:", this.name)
-        console.log("Pokemon ID:", this.id);
         console.log("Pokedex Entry:", this.pokedex);
+        console.log("Pokemon ID:", this.id);
+        console.log("Level: ", level);
         console.log("CP:", this.cp);
         console.log("Attack:", this.atk)
         console.log("Defense:", this.def);
@@ -73,7 +83,7 @@ class Pokemon {
     }
 }
 
-
+//FUNCTIONS
 function GetLevel (cp, atk, def, hp) {
     var cpm = Math.sqrt((cp*10)/(atk*Math.sqrt(def)*Math.sqrt(hp)));
     var min = 0;
@@ -95,54 +105,64 @@ function GetCp (atk, def, hp, level) {
     return cp;
 }
 
-function GetStardust (){
-    return 0; //TODO
+function GetStardust (fromLevel, toLevel){
+    var i = Math.round((fromLevel-1)*2);
+    var j = Math.round((toLevel-1)*2);
+    var cost = (powerups[j][0] - powerups[i][0])
+    if (isLucky && isPurified) {
+        cost = cost*0.45;
+    }
+    else if (isLucky) {
+        cost = cost*0.5;
+    }
+    else if (isPurified) {
+        cost = cost*0.9
+    }
+    return cost;
+}
+function GetCandy (fromLevel, toLevel){
+    var i = Math.round((fromLevel-1)*2);
+    var j =  Math.round((toLevel-1)*2);
+    var cost = powerups[j][1] - powerups[i][1]
+    return cost;
 }
 
-//OUTPUT REFERENCES
+//OUTPUT
 var outputContainer = document.getElementById("output-container")
-var template = document.getElementsByClassName("_pokemon-container")[0];
+var template = document.getElementById("_pokemon-container-template");
 
 for (var i = 0; i < family.length; i++)
 {
-    console.log("");
     var pokemon = new Pokemon(family[i], pvpdata[i]);
     pokemon.PrintStats();
     pokemon.PrintPvPStats();
+    console.log("");
 
     var clone = template.content.cloneNode(true);
-    var newContainer = document.createElement("div");
-    newContainer.setAttribute("class", "_pokemon-container")
-    newContainer.appendChild(clone);
-    outputContainer.appendChild(newContainer);
+    outputContainer.appendChild(clone);
+
+
+    var _container = document.getElementsByClassName("_pokemon-container")[i];
+
+    var _stats = _container.getElementsByClassName("__pokemon-data")[0];
+    _stats.getElementsByClassName("PokeName")[0].innerHTML = pokemon.name;
+    _stats.getElementsByClassName("PokeCP")[0].innerHTML = "CP: "+pokemon.cp;
+
+    var _gl = _container.getElementsByClassName("__gl-data")[0];
+    _gl.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.glPerc+"%";
+    _gl.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.glRank;
+    _gl.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.glStardust+" Stardust";
+    _gl.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.glCandy+" Candy";
+
+    var _ul = _container.getElementsByClassName("__ul-data")[0];
+    _ul.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.ulPerc+"%";
+    _ul.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.ulRank;
+    _ul.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.ulStardust+" Stardust";
+    _ul.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.ulCandy+" Candy";
+
+    var _ml = _container.getElementsByClassName("__ml-data")[0];
+    _ml.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.mlPerc+"%";
+    _ml.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.mlRank;
+    _ml.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.mlStardust+" Stardust";
+    _ml.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.mlCandy+" Candy";
 }
-
-//OUTPUT VALUES
-
-
-/*
-var title = "Level "+level+" "+name+" (#"+pokedex+")";
-console.log(title);
-console.log("Evolutions: " + evolutions);
-console.log("Pokemon ID: " + pokemonID);
-console.log("Pokedex Entry: " + pokedex);
-console.log("Basestats: " + statline);
-console.log("CP:" + cp);
-console.log("Attack IV: " + atkIV);
-console.log("Defense IV: " + defIV);
-console.log("HP IV: " + hpIV);
-console.log("Attack: " + atk)
-console.log("Defense: " + def);
-console.log("HP: " + hp);
-
-console.log("Gl Level: " + glLevel + "    " + glLevelEvo);
-console.log("GL#: " + glRank + "    " + glRankEvo);
-console.log("GL%: " + glPerc + "    " + glPercEvo);
-console.log("Ul Level: " + ulLevel + "    " + ulLevelEvo);
-console.log("UL#: " + ulRank + "    " + ulRankEvo);
-console.log("UL%: " + ulPerc + "    " + ulPercEvo);
-console.log("Ml Level: " + mlLevel + "    " + mlLevelEvo);
-console.log("ML#: " + mlRank + "    " + mlRankEvo);
-console.log("ML%: " + mlPerc + "    " + mlPercEvo);
-console.log("");
-*/

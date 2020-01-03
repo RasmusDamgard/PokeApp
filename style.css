@@ -1,6 +1,6 @@
 body {
-	--background-dark: #222222;
-	--foreground-dark: #333333;
+	--background-dark: #181818;
+	--foreground-dark: #282828;
 	--gl-blue: #242ec0;
 	--gl-stripe: #ab2e35;
 	--ul-black: #322d33;
@@ -32,20 +32,16 @@ input {
 	padding: .50rem;
 }
 select {
-	padding: .50rem;
 	-webkit-appearance: none;
 	border: 2px solid black;
 	background-color: var(--foreground-dark);
 	color: white;
-	width: 2.5%;
 }
-
 
 #top-image {
 	height: 15vh;
 	width: 100%;
 	background-color: var(--foreground-dark);
-	
 }
 
 
@@ -72,26 +68,44 @@ select {
 
 #ivs-checkboxes-container{
 	width: 100%;
-	height: 5vh;
+	height: 10vh;
 	margin-top: 5vh;
 	text-align: center;
 }
-#ivs-checkboxes-container select{
-	width: 6%;
-	margin-left: 6%;
+#ivs-container{
+	float: left;
 	height: 100%;
-	padding: 0.5rem;
+	width: 50%;
+}
+#ivs-container div{
+	width: 28%;
+	height: 100%;
 	text-align: center;
 	vertical-align: center;
 	float:left;
 	font-size: 20px;
 }
-#ivs-checkboxes-container div{
+#ivs-container select {
+	width: 5vh;
+	height: 5vh;
+	font-size: 16px;
+}
+
+#checkboxes-container{
 	float: right;
 	height: 100%;
-	margin-right: 4%;
-	width: 8%;
+	width: 50%;
 	font-size: 20px;
+}
+#checkboxes-container div{
+	float:right;
+	height: 100%;
+	width: 28%;
+}
+#checkboxes-container input{
+	width: 5vh;
+	height: 5vh;
+	margin: 0;
 }
 
 
@@ -108,28 +122,38 @@ select {
 }
 
 
+#_pokemon-title-container{
+	margin-left: 2vw;
+	margin-right: 2vw;
+	margin-top: 0vh;
+	width: auto;
+}
+
 
 #output-container {
 	margin-left: 2vw;
 	margin-right: 2vw;
 	margin-top: 5vh;
+	margin-bottom: 5vh;
 	background-color: var(--foreground-dark);
 	padding: 0.5vw;
 }
 
 #_output-header {
 	border: 2px solid black;
+	height: 10vh;
 }
 #_output-header div {
-	display: inline-block;
-	line-height: 9vh;
+	display: inline-flex;
+	line-height: 10vh;
 }
 #_output-header div img {
 	height: 10vh;
 	width: 10vh;
+	float: left;
 }
 #__corner-header{
-	background-color: black;
+	background-color: var(--foreground-dark);
 	width: 10%;
 	height: 10vh;
 }
@@ -157,28 +181,59 @@ select {
 }
 ._pokemon-container div {
 	display:inline-block;
+	padding: 0.5vw;
+	box-sizing: border-box;
 }
 ._pokemon-container span {
-	line-height: 160%;
-	padding: 0.5rem;
+	line-height: 5vh;
 }
 .__pokemon-data{
-	height: 10vh;
+	height: 12vh;
 	width: 10%;
-	background-color: grey;
+	background-color: var(--foreground-dark);
 }
 .__gl-data{
-	height: 10vh;
+	height: 12vh;
 	width: 30%;
 	background-color: var(--gl-blue);
 }
 .__ul-data{
-	height: 10vh;
+	height: 12vh;
 	width: 30%;
 	background-color: var(--ul-black);
 }
 .__ml-data{
-	height: 10vh;
+	height: 12vh;
 	width: 30%;
 	background-color: var(--ml-purple);
+}
+.PokeName {
+	float:left;
+	width:100%;
+	text-align: center;
+}
+.PokeCP {
+	float:left;
+	width: 100%;
+	text-align: center;
+}
+.PokePerc{
+	float:left;
+	text-align: center;
+	width: 50%;
+}
+.PokeRank{
+	float:right;
+	text-align: center;
+	width: 50%;
+}
+.PokeStardust{
+	float: left;
+	text-align: center;
+	width: 50%;
+}
+.PokeCandy {
+	float:right;
+	text-align: center;
+	width: 50%;
 }
