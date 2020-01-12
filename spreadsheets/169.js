@@ -4641,4 +4641,5 @@ pvpdata.push([
 	]
 ]);
 family.push(169);
-LoadScript("./calculate.js");
+if (ReachableByEvolution(pokemonID, 170)){LoadScript("./spreadsheets/170.js")}
+else {LoadScript("./calculate.js")}

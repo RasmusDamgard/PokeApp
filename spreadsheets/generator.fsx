@@ -1175,7 +1175,7 @@ let evolutions =
         [474];
         [475];
         [];
-        [150];
+        [160];
         [478];
         [];
         [480];
@@ -1396,7 +1396,7 @@ let evolutions =
         [];
         [696];
         [];
-        []
+        [];
     |]
 
 let EvolutionUpdater () =
@@ -1681,7 +1681,7 @@ let WriteFile (id: int) (buddy: bool)=
     fileRef.Close ()
 
 
-if false then
+if true then
     for id = 0 to 696 do
         WriteFile id true
         WriteFile id false

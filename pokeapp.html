@@ -820,7 +820,6 @@
 
 	<script src="./basestats.js"></script>
 	<script src="./levelchart.js"></script>
-	<script src="./families.js"></script>
 	<script src="./powerups.js"></script>
 
 	<script>
@@ -831,12 +830,13 @@
 			document.body.appendChild(script);
 		}
 		function ReachableByEvolution(fromId, toId) {
-			var evolutions = families[fromId].length;
+			console.log(fromId, toId, basestats[fromId][6])
+			var evolutions = basestats[fromId][6].length;
 			if (fromId == toId) {return(true)}
 			else if (evolutions == 0) {return(false)}
 			else {
 				//Cancerous javascript's way of doing a simple iter/fold/reduce.
-				const reducer = (acc, cur) => (acc || ReachableByEvolution(families[fromId][cur], toId));
+				const reducer = (acc, cur) => (acc || ReachableByEvolution(basestats[fromId][6][cur], toId));
 				return([...Array(evolutions).keys()].reduce(reducer, false));
 			}
 		}
