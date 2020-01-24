@@ -108,6 +108,7 @@ function GetCp (atk, def, hp, level) {
 function GetStardust (fromLevel, toLevel){
     var i = Math.round((fromLevel-1)*2);
     var j = Math.round((toLevel-1)*2);
+    if (j>78) {j=78}
     var cost = (powerups[j][0] - powerups[i][0])
     if (isLucky && isPurified) {
         cost = cost*0.45;
@@ -123,6 +124,7 @@ function GetStardust (fromLevel, toLevel){
 function GetCandy (fromLevel, toLevel){
     var i = Math.round((fromLevel-1)*2);
     var j =  Math.round((toLevel-1)*2);
+    if (j>78) {j=78}
     var cost = powerups[j][1] - powerups[i][1]
     return cost;
 }
