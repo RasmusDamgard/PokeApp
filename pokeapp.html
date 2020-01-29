@@ -7,11 +7,11 @@
 </head>
 <body>
 	<div id="top-image">
-		<h1>PokeApp</h1>
+		<h1 id="top-title">PokeApp</h1>
 	</div>
-	<div id="data-input">
+	<div id="input-container">
 		<form id="poke-data">
-  			<div id="species-and-cp-container">
+			<div id="species-and-cp-container">
 				<select type="text" id="_ChosenPokemon" form="poke-data" required>
 					<option value='0'>Bulbasaur</option>
 					<option value='1'>Ivysaur</option>
@@ -784,9 +784,8 @@
 	</div>
 
 	<div id="output-container">
-		<div id="_pokemon-title-container"><span id="_pokemon-title"></span></div>
 		<div id="_output-header">
-			<div id="__corner-header">
+			<div id="__corner-header"><span class="PokeLevel"></span>
 			</div><div id="__gl-header"><img id="__gl-banner" src="media/gl_banner.png"><span>Great League</span>
 			</div><div id="__ul-header"><img id="__ul-banner" src="media/ul_banner.png"><span>Ultra League</span>
 			</div><div id="__ml-header"><img id="__ml-banner" src="media/ml_banner.png"><span>Master League</span>
@@ -830,7 +829,6 @@
 			document.body.appendChild(script);
 		}
 		function ReachableByEvolution(fromId, toId) {
-			console.log(fromId, toId, basestats[fromId][6])
 			var evolutions = basestats[fromId][6].length;
 			if (fromId == toId) {return(true)}
 			else if (evolutions == 0) {return(false)}

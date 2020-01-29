@@ -138,11 +138,13 @@ for (var i = 0; i < family.length; i++)
     var pokemon = new Pokemon(family[i], pvpdata[i]);
     pokemon.PrintStats();
     pokemon.PrintPvPStats();
-    console.log("");
+    console.log(" ");
 
     var clone = template.content.cloneNode(true);
     outputContainer.appendChild(clone);
 
+    var _corner = document.getElementById("__corner-header");
+    _corner.getElementsByClassName("PokeLevel")[0].innerHTML = "Level "+level;
 
     var _container = document.getElementsByClassName("_pokemon-container")[i];
 
@@ -151,17 +153,26 @@ for (var i = 0; i < family.length; i++)
     _stats.getElementsByClassName("PokeCP")[0].innerHTML = "CP: "+pokemon.cp;
 
     var _gl = _container.getElementsByClassName("__gl-data")[0];
-    _gl.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.glPerc+"%";
-    _gl.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.glRank;
-    _gl.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.glStardust+" Stardust";
-    _gl.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.glCandy+" Candy";
+    if (pokemon.glValid) {
+        _gl.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.glPerc+"%";
+        _gl.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.glRank;
+        _gl.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.glStardust+" Stardust";
+        _gl.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.glCandy+" Candy";
+    }
+    else{
+        _gl.style.backgroundColor = "red";
+    }
 
     var _ul = _container.getElementsByClassName("__ul-data")[0];
-    _ul.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.ulPerc+"%";
-    _ul.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.ulRank;
-    _ul.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.ulStardust+" Stardust";
-    _ul.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.ulCandy+" Candy";
-
+    if (pokemon.ulValid) {
+        _ul.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.ulPerc+"%";
+        _ul.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.ulRank;
+        _ul.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.ulStardust+" Stardust";
+        _ul.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.ulCandy+" Candy";
+    }
+    else{
+        _ul.style.backgroundColor = "darkred";
+    }
     var _ml = _container.getElementsByClassName("__ml-data")[0];
     _ml.getElementsByClassName("PokePerc")[0].innerHTML = pokemon.mlPerc+"%";
     _ml.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.mlRank;
