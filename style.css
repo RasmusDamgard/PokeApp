@@ -1,6 +1,6 @@
 body {
 	--background-dark: #181818;
-	--foreground-dark: #282828;
+	--foreground-dark: #323234;
 	--gl-blue: #242ec0;
 	--gl-stripe: #ab2e35;
 	--ul-black: #322d33;
@@ -141,7 +141,6 @@ select {
 /**/
 #_output-header {
 	border: 2px solid black;
-	height: 10vh;
 }
 #_output-header div {
 	display: inline-block;
@@ -149,32 +148,38 @@ select {
 }
 #_output-header div img {
 	height: 10vh;
-	width: 10vh;
 	float: left;
+	position: absolute;
 }
 #__corner-header{
 	background-color: var(--foreground-dark);
 	width: 10%;
-	height: 10vh;
 }
 #__corner-header span{
 	display: inline-block;
 	width: 100%;
 	text-align: center;
 }
-#__gl-header{
-	height: 10vh;
+.__pvp-header-container {
 	width: 30%;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.__pvp-header-container span{
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+}
+.__gl-header{
+	background-image: url("media/gl_banner.png");
 	background-color: var(--gl-blue);
 }
-#__ul-header{
-	height: 10vh;
-	width: 30%;
+.__ul-header{
+	background-image: url("media/ul_banner.png");
 	background-color: var(--ul-black);
 }
-#__ml-header{
-	height: 10vh;
-	width: 30%;
+.__ml-header{
+	background-image: url("media/ml_banner.png");
 	background-color: var(--ml-purple);
 }
 /**/
@@ -185,37 +190,37 @@ select {
 }
 ._pokemon-container div {
 	display: inline-block;
-	height: 12vh;
-}
-._pokemon-container span {
-	line-height: 6vh;
 }
 .__pokemon-data{
-	height: 12vh;
 	width: 10%;
 	background-color: var(--foreground-dark);
 }
-.__gl-data{
+.__pokemon-data span{
+	line-height: 7.5vh;
+}
+.__pvp-data-container {
 	width: 30%;
+	line-height: 5vh;
+}
+.__pvp-data-container span {
+	width: 50%;
+	text-align: center;
+	float: left;
+}
+.__gl-data{
 	background-color: var(--gl-blue);
 }
 .__ul-data{
-	width: 30%;
 	background-color: var(--ul-black);
 }
 .__ml-data{
-	width: 30%;
 	background-color: var(--ml-purple);
 }
 
-/*
-
---- START OF STAT TEXT ---
-
-*/
+/*TODO: rEFCAOTR*/
 .PokeName {
 	float:left;
-	width:100%;
+	width: 100%;
 	text-align: center;
 }
 .PokeCP {
@@ -223,23 +228,9 @@ select {
 	width: 100%;
 	text-align: center;
 }
-.PokePerc{
-	float:left;
-	text-align: center;
-	width: 50%;
-}
-.PokeRank{
-	float:right;
-	text-align: center;
-	width: 50%;
-}
-.PokeStardust{
-	float: left;
-	text-align: center;
-	width: 50%;
-}
-.PokeCandy {
-	float:right;
-	text-align: center;
-	width: 50%;
+
+.PokeValid {
+	width: 100% !important;
+	line-height: 15vh;
+	font-size: 24px;
 }
