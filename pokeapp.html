@@ -821,11 +821,11 @@
 			</div>
 		</template>
 	</div>
-	
 
 	<script src="./basestats.js"></script>
 	<script src="./levelchart.js"></script>
 	<script src="./powerups.js"></script>
+	<script src="./formulae.js"></script>
 
 	<script>
 		function LoadScript (src) {
@@ -844,6 +844,18 @@
 				return([...Array(evolutions).keys()].reduce(reducer, false));
 			}
 		}
+		function Reset() {
+			var elems = document.getElementsByClassName("_AddedDynamically");
+			while(elems.length > 0){
+				elems[0].parentNode.removeChild(elems[0]);
+			}
+			var elems = document.getElementsByClassName("_pokemon-container");
+			while(elems.length > 0){
+				elems[0].parentNode.removeChild(elems[0]);
+			}
+			pvpdata = [];
+			family = [];
+		}
 
 		var calculate = document.getElementById("calculate-button");
 		var pvpdata = [];
@@ -856,10 +868,8 @@
 			//TODO: IF all inputs filled validly, then LoadScript, else alert("do inputs")
 			//TODO: Calculate if cp is valid, based on pokemon
 			//Remove extra scripts
-			var elems = document.getElementsByClassName("_AddedDynamically");
-			while(elems.length > 0){
-				elems[0].parentNode.removeChild(elems[0]);
-			}
+			Reset();
+
 			//This script calls another scripts that calculates
 			if (buddy) {LoadScript("./spreadsheets/"+pokemonID+"b.js")}
 			else {LoadScript("./spreadsheets/"+pokemonID+".js")};
