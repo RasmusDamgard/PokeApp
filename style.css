@@ -171,15 +171,15 @@ select {
 	width: 100%;
 }
 .__gl-header{
-	background-image: url("media/gl_banner.png");
+	background-image: url("media/bannerGL.svg");
 	background-color: var(--gl-blue);
 }
 .__ul-header{
-	background-image: url("media/ul_banner.png");
+	background-image: url("media/bannerUL.svg");
 	background-color: var(--ul-black);
 }
 .__ml-header{
-	background-image: url("media/ml_banner.png");
+	background-image: url("media/bannerML.svg");
 	background-color: var(--ml-purple);
 }
 /**/

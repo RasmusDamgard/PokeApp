@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="210mm" height="297mm" version="1.1" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="126.04mm" height="8.5012mm" version="1.1" viewBox="0 0 126.04 8.5012" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <metadata>
   <rdf:RDF>
    <cc:Work rdf:about="">
@@ -10,8 +10,8 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g fill-rule="evenodd" stroke-width="0">
-  <path d="m101.13 45.259v8.4997h35.88a4.2504 4.2504 0 1 0 0-8.4997zm-42.322 0v8.4997h40.723v-8.4997zm-39.203 0a4.2504 4.2504 0 1 0 0 8.4997h37.602v-8.4997z" fill="#e2e2e2" style="paint-order:markers fill stroke"/>
-  <path d="m19.607 45.259a4.2504 4.2504 0 1 0 0 8.4997h0.47284a4.2504 4.2504 0 1 0 0-8.4997z" fill="#ee9219" style="paint-order:markers fill stroke"/>
+ <g transform="translate(-40.543 -112.83)" fill-rule="evenodd" stroke-width="0">
+  <path d="m126.39 112.83v8.4997h35.88a4.2504 4.2504 0 1 0 0-8.4997zm-42.322 0v8.4997h40.723v-8.4997zm-39.203 0a4.2504 4.2504 0 1 0 0 8.4997h37.602v-8.4997z" fill="#e2e2e2" style="paint-order:markers fill stroke"/>
+  <path d="m44.862 112.83a4.2504 4.2504 0 1 0 0 8.4997h0.47284a4.2504 4.2504 0 1 0 0-8.4997z" fill="#ee9219" style="paint-order:markers fill stroke"/>
  </g>
 </svg>
