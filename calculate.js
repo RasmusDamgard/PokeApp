@@ -19,53 +19,6 @@ var level = GetLevel(cp,
     defIV + parseInt(basestats[pokemonID][4]),
     hpIV + parseInt(basestats[pokemonID][2]));
 
-//FUNCTIONS
-function GetLevel (cp, atk, def, hp) {
-    var cpm = Math.sqrt((cp*10)/(atk*Math.sqrt(def)*Math.sqrt(hp)));
-    var min = 0;
-    for (i = 0; i < levelchart.length; i++) {
-        var curDiff = Math.abs(cpm - levelchart[i][1]);
-        var minDiff = Math.abs(cpm - levelchart[min][1]);
-        if (curDiff < minDiff) {
-            min = i;
-        }
-    }
-    var level = levelchart[min][0];
-    return level;
-}
-
-function GetCp (atk, def, hp, level) {
-    var index = Math.round((level-1)*2);
-    var cpm = levelchart[index][1];
-    var cp = Math.floor(atk*Math.sqrt(def)*Math.sqrt(hp)*Math.pow(cpm,2)/10)
-    return cp;
-}
-
-function GetStardust (fromLevel, toLevel){
-    var i = Math.round((fromLevel-1)*2);
-    var j = Math.round((toLevel-1)*2);
-    if (j>78) {j=78}
-    var cost = (powerups[j][0] - powerups[i][0])
-    if (isLucky && isPurified) {
-        cost = cost*0.45;
-    }
-    else if (isLucky) {
-        cost = cost*0.5;
-    }
-    else if (isPurified) {
-        cost = cost*0.9
-    }
-    return cost;
-}
-function GetCandy (fromLevel, toLevel){
-    var i = Math.round((fromLevel-1)*2);
-    var j =  Math.round((toLevel-1)*2);
-    if (j>78) {j=78}
-    var cost = powerups[j][1] - powerups[i][1]
-    return cost;
-}
-
-//OUTPUT
 var outputContainer = document.getElementById("output-container")
 var template = document.getElementById("_pokemon-container-template");
 
@@ -75,9 +28,10 @@ function SetPvPData (container, pokemon, league) {
         container.getElementsByClassName("PokeRank")[0].innerHTML = "#"+pokemon.pvp[league].rank;
         container.getElementsByClassName("PokeStardust")[0].innerHTML = pokemon.pvp[league].stardust+" Stardust";
         container.getElementsByClassName("PokeCandy")[0].innerHTML = pokemon.pvp[league].candy+" Candy";
-        container.getElementsByClassName("PokeLevel")[0].innerHTML = "Level "+pokemon.pvp[league].level
-    }
-    else {
+        container.getElementsByClassName("PokeLevel")[0].innerHTML = "Level "+pokemon.pvp[league].level;
+        container.getElementsByClassName("PokeCP_unit")[0].innerHTML = "CP";
+        container.getElementsByClassName("PokeCP_value")[0].innerHTML = pokemon.pvp[league].cp;
+    } else {
         container.getElementsByClassName("PokeValid")[0].innerHTML = "Not Eligible";
         if (league == "great") {container.style.backgroundColor = "red";}
         else {container.style.backgroundColor = "darkred";}
@@ -86,7 +40,7 @@ function SetPvPData (container, pokemon, league) {
 
 for (var i = 0; i < family.length; i++)
 {
-    var pokemon = new Pokemon(family[i], pvpdata[i]);
+    var pokemon = new Pokemon(family[i], pvpdata[i], level);
     pokemon.PrintStats();
     pokemon.PrintPvPStats();
     console.log(" ");
@@ -101,7 +55,8 @@ for (var i = 0; i < family.length; i++)
 
     var _stats = _container.getElementsByClassName("__pokemon-data")[0];
     _stats.getElementsByClassName("PokeName")[0].innerHTML = pokemon.name;
-    _stats.getElementsByClassName("PokeCP")[0].innerHTML = "CP: "+pokemon.cp;
+    _stats.getElementsByClassName("PokeCP_unit")[0].innerHTML = "CP";
+    _stats.getElementsByClassName("PokeCP_value")[0].innerHTML = pokemon.cp;
 
     var _gl = _container.getElementsByClassName("__gl-data")[0];
     SetPvPData(_gl, pokemon, "great");

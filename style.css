@@ -202,7 +202,7 @@ select {
 	width: 30%;
 	line-height: 5vh;
 }
-.__pvp-data-container span {
+.__pvp-data-container > span {
 	width: 50%;
 	text-align: center;
 	float: left;
@@ -227,6 +227,10 @@ select {
 	float:left;
 	width: 100%;
 	text-align: center;
+}
+.PokeCP_unit {
+	font-size: 14px;
+	margin-right: 2px;
 }
 
 .PokeValid {
