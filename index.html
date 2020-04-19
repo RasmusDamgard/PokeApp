@@ -837,6 +837,7 @@
 			document.body.appendChild(script);
 		}
 		function ReachableByEvolution(fromId, toId) {
+			console.log(fromId, toId, basestats[fromId]);
 			var evolutions = basestats[fromId][6].length;
 			if (fromId == toId) {return(true)}
 			else if (evolutions == 0) {return(false)}
